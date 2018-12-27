@@ -33,8 +33,6 @@ class IndexedDBMySQL {
     const list = db.target.result.objectStoreNames;
     const arList = [];
 
-    console.log(list);
-
     for (let n = 0; n < list.length; n++)
       arList.push(list.item(n));
 
@@ -74,6 +72,8 @@ class IndexedDBMySQL {
     return {keyPath, keys, values};
   }
 }
+
+export default IndexedDBMySQL;
 
 // const i = new IndexedDBMySQL(NAME, VERSION);
 
