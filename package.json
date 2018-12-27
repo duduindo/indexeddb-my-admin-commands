@@ -1,0 +1,31 @@
+{
+  "name": "indexeddb-my-admin-commands",
+  "version": "0.2.0",
+  "description": "Commands of IndexedDB My Admin",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --config jest.config.json",
+    "test:coverage": "jest --config jest.config.json --coverage",
+    "test:watch": "jest --config jest.config.json --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duduindo/indexeddb-my-admin-commands.git"
+  },
+  "keywords": [
+    "indexedDB",
+    "phpmyadmin"
+  ],
+  "author": "Eduardo Paixão (@duduindo)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/duduindo/indexeddb-my-admin-commands/issues"
+  },
+  "homepage": "https://github.com/duduindo/indexeddb-my-admin-commands#readme",
+  "devDependencies": {
+    "babel-jest": "^23.6.0",
+    "fake-indexeddb": "^2.0.4",
+    "jest": "^23.6.0"
+  },
+  "dependencies": {}
+}

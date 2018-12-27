@@ -1,0 +1,11 @@
+{
+  "browser": true,
+  "transform": {
+    "^.+\\.js$": "babel-jest"
+  },
+  "collectCoverageFrom": [
+    "**/src/js/**/*.js",
+    "!**/node_modules/**"
+  ],
+  "roots": ["src/js"]
+}   
