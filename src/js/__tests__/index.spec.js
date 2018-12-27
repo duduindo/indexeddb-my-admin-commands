@@ -5,7 +5,7 @@ import IDBKeyRange from 'fake-indexeddb/lib/FDBKeyRange';
 describe('Teste', () => {
 
 	test('', () => {
-		
+    expect(true).toBe(true);
 	});
-	
-}); 
+
+});
