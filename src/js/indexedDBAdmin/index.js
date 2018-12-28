@@ -4,7 +4,7 @@ const VERSION = 2;
 let CALLED = false;
 
 
-class IndexedDBMySQL {
+class IndexedDBAdmin {
   constructor(name, version) {
     this.name = name;
     this.version = version;
@@ -21,7 +21,7 @@ class IndexedDBMySQL {
   }
 
   // @private
-  async objectStore(name, mode) {
+  async objectStore(name, mode = 'readonly') {
     const db = await this.open();
 
     return db.target.result.transaction(name, mode).objectStore(name);
@@ -41,7 +41,7 @@ class IndexedDBMySQL {
 
   // @public
   async getAllKeysFromObjectStore(name) {
-    const objectStore = await this.objectStore(name, 'readonly');
+    const objectStore = await this.objectStore(name);
 
     return new Promise((resolve, reject) => {
       const keys = objectStore.getAllKeys();
@@ -53,7 +53,7 @@ class IndexedDBMySQL {
 
   // @public
   async getAllValuesFromObjectStore(name) {
-    const objectStore = await this.objectStore(name, 'readonly');
+    const objectStore = await this.objectStore(name);
 
     return new Promise((resolve, reject) => {
       const keys = objectStore.getAll();
@@ -65,7 +65,7 @@ class IndexedDBMySQL {
 
   // @public
   async getAllFromObjectStore(name) {
-    const { keyPath } = await this.objectStore(name, 'readonly');
+    const { keyPath } = await this.objectStore(name);
     const keys = await this.getAllKeysFromObjectStore(name);
     const values = await this.getAllValuesFromObjectStore(name);
 
@@ -73,8 +73,11 @@ class IndexedDBMySQL {
   }
 }
 
-export default IndexedDBMySQL;
+export default IndexedDBAdmin;
 
-// const i = new IndexedDBMySQL(NAME, VERSION);
+// const i = new IndexedDBAdmin(NAME, VERSION);
 
 // i.getStoreNamesToArray().then(e => console.log(e)).catch(e => console.error(e));
+// i.getAllKeysFromObjectStore('reservations').then(e => console.log(e)).catch(e => console.error(e));
+// i.getAllValuesFromObjectStore('reservations').then(e => console.log(e)).catch(e => console.error(e));
+// i.getAllFromObjectStore('reservations').then(e => console.log(e)).catch(e => console.error(e));
