@@ -24,17 +24,35 @@ describe('Tests all', () => {
 
   describe('Object Store', () => {
     test('Should return list object stores of keyPath match', async () => {
-      const objects = await indexedDBAdmin.getAllKeysFromObjectStore('books');
+      const list = await indexedDBAdmin.getAllKeysFromObjectStore('books');
 
-      expect(objects).toEqual([123456, 234567, 345678]);
+      expect(list).toEqual([123456, 234567, 345678]);
     });
 
-    // test('Should return list object stores of keyPath match', async () => {
-    //   const objects = await indexedDBAdmin.getAllValuesFromObjectStore('books');
+    test('Should return list object stores', async () => {
+      const list = await indexedDBAdmin.getAllValuesFromObjectStore('books');
+      const result = [
+        { title: 'Quarry Memories', author: 'Fred', isbn: 123456 },
+        { title: 'Water Buffaloes', author: 'Fred', isbn: 234567 },
+        { title: 'Bedrock Nights', author: 'Barney', isbn: 345678 }
+      ];
 
-    //   expect(objects).toEqual([123456, 234567, 345678]);
-    // });
+      expect(list).toEqual(result);
+    });
 
-    //getAllValuesFromObjectStore
+    test('Should return full object stores', async () => {
+      const list = await indexedDBAdmin.getAllFromObjectStore('books');
+      const result = {
+        keyPath: 'isbn',
+        keys: [ 123456, 234567, 345678 ],
+        values:[
+          { title: 'Quarry Memories', author: 'Fred', isbn: 123456 },
+          { title: 'Water Buffaloes', author: 'Fred', isbn: 234567 },
+          { title: 'Bedrock Nights', author: 'Barney', isbn: 345678 }
+        ]
+      };
+
+      expect(list).toEqual(result);
+    });
   });
 });
