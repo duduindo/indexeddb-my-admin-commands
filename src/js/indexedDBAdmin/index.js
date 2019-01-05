@@ -1,7 +1,6 @@
 
 const NAME = 'gih-reservations';
 const VERSION = 2;
-let CALLED = false;
 
 
 class IndexedDBAdmin {
@@ -32,6 +31,7 @@ class IndexedDBAdmin {
     const db = await this.open();
     const list = db.target.result.objectStoreNames;
     const arList = [];
+
 
     for (let n = 0; n < list.length; n++)
       arList.push(list.item(n));

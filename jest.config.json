@@ -7,5 +7,8 @@
     "**/src/js/**/*.js",
     "!**/node_modules/**"
   ],
-  "roots": ["src/js"]
-}   
+  "roots": ["src/js"],
+  "setupFiles": [
+    "<rootDir>/jest.globals.js"
+  ]
+}

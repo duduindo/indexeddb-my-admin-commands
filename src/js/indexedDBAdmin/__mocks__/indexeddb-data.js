@@ -1,7 +1,7 @@
 //import IndexedDB from 'fake-indexeddb';
 //import IDBKeyRange from 'fake-indexeddb/lib/FDBKeyRange';
 
-const request = indexedDB.open('test', 1);
+const request = global.indexedDB.open('test', 1);
 
 request.onupgradeneeded = function () {
   const db = request.result;
@@ -15,5 +15,4 @@ request.onupgradeneeded = function () {
 }
 
 
-export { request as indexedDB };
-
+//export { request as indexedDB };
