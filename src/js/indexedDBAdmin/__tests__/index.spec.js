@@ -8,8 +8,6 @@ describe('Tests all', () => {
     require('../__mocks__/indexeddb-data.js');
 
     indexedDBAdmin = new IndexedDBAdmin('test', 1);
-
-    // getAllKeysFromObjectStore('reservations')
   });
 
 
@@ -51,6 +49,20 @@ describe('Tests all', () => {
           { title: 'Bedrock Nights', author: 'Barney', isbn: 345678 }
         ]
       };
+
+      expect(list).toEqual(result);
+    });
+  });
+
+
+  describe('Cursors', () => {
+    test('Should return values', async () => {
+      const list = await indexedDBAdmin.getCursors('books');
+      const result = [
+        { title: 'Quarry Memories', author: 'Fred', isbn: 123456 },
+        { title: 'Water Buffaloes', author: 'Fred', isbn: 234567 },
+        { title: 'Bedrock Nights', author: 'Barney', isbn: 345678 }
+      ];
 
       expect(list).toEqual(result);
     });

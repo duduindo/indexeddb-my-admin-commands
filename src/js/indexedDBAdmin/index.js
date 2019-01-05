@@ -12,7 +12,7 @@ class IndexedDBAdmin {
   // @private
   open() {
     return new Promise((resolve, reject) => {
-      const request = window.indexedDB.open(this.name, this.version);
+      const request = window.indexedDB.open(this.name, this.version);;
 
       request.onsuccess = resolve;
       request.onerror = reject;
@@ -71,6 +71,31 @@ class IndexedDBAdmin {
 
     return {keyPath, keys, values};
   }
+
+
+  // @public
+  async getCursors(name) {
+    const objectStore = await this.objectStore(name);
+
+    return new Promise((resolve, reject) => {
+      const openCursor = objectStore.openCursor();
+      const data = [];
+
+      openCursor.onsuccess = event => {
+        const cursor = event.target.result;
+
+        if (cursor) {
+          data.push(cursor.value);
+          cursor.continue();
+        } else {
+          resolve(data);
+        }
+      };
+
+      openCursor.onerror = reject;
+    });
+  }
+
 }
 
 export default IndexedDBAdmin;
