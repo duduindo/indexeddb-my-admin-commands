@@ -2,7 +2,6 @@
 const NAME = 'gih-reservations';
 const VERSION = 2;
 
-
 class IndexedDBAdmin {
   constructor(name, version) {
     this.name = name;

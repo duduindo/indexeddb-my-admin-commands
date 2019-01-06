@@ -9,6 +9,7 @@
   ],
   "roots": ["src/js"],
   "setupFiles": [
-    "<rootDir>/jest.globals.js"
+    "<rootDir>/jest.globals.js",
+    "jest-webextension-mock"
   ]
 }
