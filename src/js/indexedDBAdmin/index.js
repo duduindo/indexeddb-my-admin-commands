@@ -63,6 +63,14 @@ class IndexedDBAdmin {
   }
 
   // @public
+  async getIndexesFromObjectStore(name) {
+    const objectStore = await this.objectStore(name);
+    const names = objectStore.indexNames;
+
+    return names;
+  }
+
+  // @public
   async getAllFromObjectStore(name) {
     const { keyPath } = await this.objectStore(name);
     const keys = await this.getAllKeysFromObjectStore(name);
@@ -71,6 +79,24 @@ class IndexedDBAdmin {
     return {keyPath, keys, values};
   }
 
+  // @public
+  async getTree() {
+    const storeNames = await this.getStoreNamesToArray();
+    let tree = [];
+
+    tree = storeNames.map(async store => {
+      const indexes = await this.getIndexesFromObjectStore(store);
+
+      return {
+        storeName: store,
+        indexNames: indexes
+      };
+    });
+
+    tree = await Promise.all(tree);
+
+    return tree;
+  }
 
   // @public
   async getCursors(name) {

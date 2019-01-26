@@ -6,7 +6,7 @@ describe('Tests all', () => {
   let command = null;
 
   beforeAll(() => {
-    require('../../indexedDBAdmin/__mocks__/indexeddb-data.js');
+    require('../../indexedDBAdmin/__mocks__/indexeddb-library.js');
 
     command = new Commands;
   });
@@ -15,7 +15,7 @@ describe('Tests all', () => {
     const action = {
       type: 'GET_STORE_NAMES_TO_ARRAY',
       payload: {
-        name: 'test',
+        name: 'library',
         version: 1,
       }
     };
@@ -29,7 +29,7 @@ describe('Tests all', () => {
     const action = {
       type: 'GET_ALL_OBJECT_STORE',
       payload: {
-        name: 'test',
+        name: 'library',
         version: 1,
         store: 'books'
       }
