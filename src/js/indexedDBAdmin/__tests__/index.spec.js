@@ -24,19 +24,23 @@ describe('Tests all', () => {
 
   describe('Store and Indexes', () => {
     test('Should tree store names and indexes', async () => {
-      const tree = await indexedDBAdminBooks.getTree();
-      const result = [
-        {
-          storeName: 'books',
-          indexNames: [ 'by_title' ]
-        },
-        {
-          storeName: 'e-readers',
-          indexNames: [ 'by_maker', 'by_title' ]
-        }
-      ];
+      const database = await indexedDBAdminBooks.getDatabaseTree();
+      const result = {
+        name: 'library',
+        version: 1,
+        stores: [
+          {
+            name: 'books',
+            indexes: [ 'by_title' ]
+          },
+          {
+            name: 'e-readers',
+            indexes: [ 'by_maker', 'by_title' ]
+          }
+        ]
+      };
 
-      expect(tree).toEqual(result);
+      expect(database).toEqual(result);
     });
   });
 

@@ -15,8 +15,12 @@ class Commands {
         return request.getAllFromObjectStore(payload.store);
         break;
 
+      case 'GET_DATABASE_TREE':
+        return request.getDatabaseTree(payload.store);
+        break;
+
       default:
-        return 'Error';
+        return 'Error default command';
     }
   }
 

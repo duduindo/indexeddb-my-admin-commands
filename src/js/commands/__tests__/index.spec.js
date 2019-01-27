@@ -22,7 +22,7 @@ describe('Tests all', () => {
 
     const data = await command.exec(action);
 
-    expect(data).toEqual(['books']);
+    expect(data).toEqual(['books', 'e-readers']);
   });
 
   test('Should return data from store names', async () => {
@@ -42,6 +42,35 @@ describe('Tests all', () => {
         { title: 'Quarry Memories', author: 'Fred', isbn: 123456 },
         { title: 'Water Buffaloes', author: 'Fred', isbn: 234567 },
         { title: 'Bedrock Nights', author: 'Barney', isbn: 345678 }
+      ]
+    };
+
+    const data = await command.exec(action);
+
+    expect(data).toEqual(result);
+  });
+
+  test('Should tree store names and indexes', async () => {
+    const action = {
+      type: 'GET_DATABASE_TREE',
+      payload: {
+        name: 'library',
+        version: 1,
+      }
+    };
+
+    const result = {
+      name: 'library',
+      version: 1,
+      stores: [
+        {
+          name: 'books',
+          indexes: [ 'by_title' ]
+        },
+        {
+          name: 'e-readers',
+          indexes: [ 'by_maker', 'by_title' ]
+        }
       ]
     };
 

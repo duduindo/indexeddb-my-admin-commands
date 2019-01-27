@@ -65,7 +65,7 @@ class IndexedDBAdmin {
   // @public
   async getIndexesFromObjectStore(name) {
     const objectStore = await this.objectStore(name);
-    const names = objectStore.indexNames;
+    const names = Array.from(objectStore.indexNames);
 
     return names;
   }
@@ -80,22 +80,23 @@ class IndexedDBAdmin {
   }
 
   // @public
-  async getTree() {
+  async getDatabaseTree() {
     const storeNames = await this.getStoreNamesToArray();
+    const database = { name: this.name, version: this.version, stores: [] };
     let tree = [];
 
     tree = storeNames.map(async store => {
       const indexes = await this.getIndexesFromObjectStore(store);
 
       return {
-        storeName: store,
-        indexNames: indexes
+        name: store,
+        indexes: indexes
       };
     });
 
-    tree = await Promise.all(tree);
+    database.stores = await Promise.all(tree);
 
-    return tree;
+    return database;
   }
 
   // @public
