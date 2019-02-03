@@ -1,7 +1,3 @@
-
-const NAME = 'gih-reservations';
-const VERSION = 2;
-
 class IndexedDBAdmin {
   constructor(name, version) {
     this.name = name;
@@ -121,14 +117,6 @@ class IndexedDBAdmin {
       openCursor.onerror = reject;
     });
   }
-
 }
 
-export default IndexedDBAdmin;
-
-// const i = new IndexedDBAdmin(NAME, VERSION);
-
-// i.getStoreNamesToArray().then(e => console.log(e)).catch(e => console.error(e));
-// i.getAllKeysFromObjectStore('reservations').then(e => console.log(e)).catch(e => console.error(e));
-// i.getAllValuesFromObjectStore('reservations').then(e => console.log(e)).catch(e => console.error(e));
-// i.getAllFromObjectStore('reservations').then(e => console.log(e)).catch(e => console.error(e));
+module.exports = IndexedDBAdmin;

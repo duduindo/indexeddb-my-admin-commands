@@ -1,4 +1,4 @@
-import IndexedDBAdmin from '../indexedDBAdmin';
+const IndexedDBAdmin = require('../indexedDBAdmin');
 
 
 class Commands {
@@ -35,5 +35,4 @@ class Commands {
   }
 }
 
-
-export default Commands;
+module.exports = Commands;
