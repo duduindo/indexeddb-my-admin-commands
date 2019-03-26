@@ -1,38 +1,76 @@
-const IndexedDBAdmin = require('../indexedDBAdmin');
+const IndexedDBAdmin = require('../indexedDBAdmin')
+const Tab = require('../tab')
 
 
 class Commands {
-  reducer(action) {
-    const { type, payload } = action;
-    const request = new IndexedDBAdmin(payload.name, payload.version);
+  constructor(props) {
+    this.action = {}
+  }
 
-    switch(action.type) {
-      case 'GET_STORE_NAMES_TO_ARRAY':
-        return request.getStoreNamesToArray();
-        break;
+  async handleIndexedDB() {
+    const { type, payload } = this.action
+    const request = new IndexedDBAdmin(payload.name, payload.version)
 
-      case 'GET_ALL_OBJECT_STORE':
-        return request.getAllFromObjectStore(payload.store);
-        break;
-
+    switch(type) {
       case 'GET_DATABASE_TREE':
         return request.getDatabaseTree(payload.store);
         break;
 
       default:
-        return 'Error default command';
+        throw new Error('Error default command');
     }
+
+    return request
+  }
+
+  async handleTab() {
+    const { type, payload } = this.action
+    const request = new Tab()
+
+    switch(type) {
+      case 'GET_TAB_HOST':
+        return request.getHost();
+        break;
+
+      default:
+        throw new Error('Error default command');
+    }
+
+    return request
+  }
+
+  reducer() {
+    const { type } = this.action
+    let request = null
+
+    if (type.startsWith('GET_DATABASE')) {
+      request = this.handleIndexedDB()
+    }
+
+    if (type.startsWith('GET_TAB')) {
+      request = this.handleTab()
+    }
+
+    return request
   }
 
   async exec(action) {
-    if (action['type'] || payload['payload']['name'] || payload['payload']['version']) {
+    this.action = action
+
+    if (action['type']) {
       try {
-        return await this.reducer(action);
+        return {
+          type: action.type,
+          data: await this.reducer(action)
+        }
       } catch(err) {
-        console.error(err);
+        return {
+          type: 'ERROR',
+          data: null
+        }
       }
     }
   }
 }
 
-module.exports = Commands;
+module.exports = Commands
