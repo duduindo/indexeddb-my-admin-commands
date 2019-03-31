@@ -60,13 +60,15 @@ class Commands {
     if (action['type']) {
       try {
         return {
-          type: action.type,
-          data: await this.reducer(action)
+          data: await this.reducer(action),
+          origin: window.location.host,
+          type: action.type
         }
       } catch(err) {
         return {
-          type: 'ERROR',
-          data: null
+          data: null,
+          origin: window.location.host,
+          type: 'ERROR'
         }
       }
     }

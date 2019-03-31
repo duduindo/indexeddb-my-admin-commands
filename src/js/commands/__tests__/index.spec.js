@@ -18,7 +18,8 @@ describe('Tests all', () => {
         payload: {
           name: 'library',
           version: 1,
-        }
+        },
+        origin: window.location.host
       }
 
       const result = {
@@ -36,7 +37,8 @@ describe('Tests all', () => {
               indexes: [ 'by_maker', 'by_title' ]
             }
           ]
-        }
+        },
+        origin: window.location.host
       }
 
       const data = await command.exec(action)
@@ -53,8 +55,9 @@ describe('Tests all', () => {
       }
 
       const result = {
-        type: 'GET_TAB_HOST',
-        data: 'localhost'
+        data: 'localhost',
+        origin: window.location.host,
+        type: 'GET_TAB_HOST'
       }
 
       const data = await command.exec(action)
