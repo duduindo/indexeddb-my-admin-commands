@@ -45,6 +45,36 @@ describe('Tests all', () => {
 
       expect(data).toEqual(result)
     })
+
+    test('Should return all data from store', async () => {
+      const action = {
+        type: 'GET_DATABASE_STORE',
+        payload: {
+          name: 'library',
+          version: 1,
+          store: 'books'
+        },
+        origin: window.location.host
+      }
+
+      const result = {
+        type: 'GET_DATABASE_STORE',
+        data: {
+          keyPath: 'isbn',
+          keys: [ 123456, 234567, 345678 ],
+          values: [
+            { title: 'Quarry Memories', author: 'Fred', isbn: 123456 },
+            { title: 'Water Buffaloes', author: 'Fred', isbn: 234567 },
+            { title: 'Bedrock Nights', author: 'Barney', isbn: 345678 }
+          ]
+        },
+        origin: window.location.host
+      }
+
+      const data = await command.exec(action)
+
+      expect(data).toEqual(result)
+    })
   })
 
 

@@ -12,8 +12,12 @@ class Commands {
     const request = new IndexedDBAdmin(payload.name, payload.version)
 
     switch(type) {
+      case 'GET_DATABASE_STORE':
+        return request.getAllFromObjectStore(payload.store);
+        break;
+
       case 'GET_DATABASE_TREE':
-        return request.getDatabaseTree(payload.store);
+        return request.getDatabaseTree();
         break;
 
       default:
