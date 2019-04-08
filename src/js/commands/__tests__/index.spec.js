@@ -6,7 +6,7 @@ describe('Tests all', () => {
   let command = null
 
   beforeAll(() => {
-    require('../../indexedDBAdmin/__mocks__/indexeddb-library.js')
+    require('../__mocks__/indexeddb-library.js')
 
     command = new Commands
   })
@@ -75,8 +75,56 @@ describe('Tests all', () => {
 
       expect(data).toEqual(result)
     })
-  })
 
+
+    test('Should return success when object store added', async () => {
+      const action = {
+        type: 'ADD_DATABASE_STORE',
+        payload: {
+          name: 'library',
+          version: 1,
+          store: 'books',
+          value: { title: '1964', author: 'Fulano', isbn: 6543 }
+        },
+        origin: window.location.host
+      }
+
+      const result = {
+        type: 'ADD_DATABASE_STORE',
+        data: 'success',
+        origin: window.location.host
+      }
+
+      const data = await command.exec(action)
+
+      expect(data).toEqual(result)
+    })
+
+
+    test('Should return success when object store updated', async () => {
+      const action = {
+        type: 'UPDATE_DATABASE_STORE',
+        payload: {
+          name: 'library',
+          version: 1,
+          store: 'books',
+          oldValue: { title: '1964', author: 'Fulano', isbn: 6543 },
+          newValue: { title: '2000', author: 'Sicrano', isbn: 2000 }
+        },
+        origin: window.location.host
+      }
+
+      const result = {
+        type: 'UPDATE_DATABASE_STORE',
+        data: 'success',
+        origin: window.location.host
+      }
+
+      const data = await command.exec(action)
+
+      expect(data).toEqual(result)
+    })
+  })
 
   describe('Tab', () => {
     test('Should to return the host', async () => {

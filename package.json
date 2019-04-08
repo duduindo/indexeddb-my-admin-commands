@@ -25,9 +25,11 @@
   "devDependencies": {
     "babel-jest": "^23.6.0",
     "babel-preset-env": "^1.7.0",
-    "fake-indexeddb": "^2.0.4",
-    "jest": "^23.6.0",
+    "fake-indexeddb": "^2.1.0",
+    "jest": "^24.7.1",
     "jest-webextension-mock": "^3.5.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
 }

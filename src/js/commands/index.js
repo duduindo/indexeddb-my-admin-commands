@@ -20,6 +20,14 @@ class Commands {
         return request.getDatabaseTree();
         break;
 
+      case 'ADD_DATABASE_STORE':
+        return request.addObjectStore(payload.store, payload.value);
+        break;
+
+      case 'UPDATE_DATABASE_STORE':
+        return request.updateObjectStore(payload.store, payload.oldValue, payload.newValue);
+        break;
+
       default:
         throw new Error('Error default command');
     }
@@ -47,11 +55,11 @@ class Commands {
     const { type } = this.action
     let request = null
 
-    if (type.startsWith('GET_DATABASE')) {
+    if (type.match('_DATABASE_')) {
       request = this.handleIndexedDB()
     }
 
-    if (type.startsWith('GET_TAB')) {
+    if (type.match('_TAB_')) {
       request = this.handleTab()
     }
 

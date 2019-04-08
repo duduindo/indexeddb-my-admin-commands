@@ -117,6 +117,54 @@ class IndexedDBAdmin {
       openCursor.onerror = reject;
     });
   }
+
+  // @public
+  async addObjectStore(name, value) {
+    const objectStore = await this.objectStore(name, 'readwrite');
+
+    return new Promise((resolve, reject) => {
+      const put = objectStore.put(value)
+
+      put.onsuccess = () => resolve('success');
+      put.onerror = reject;
+    });
+  }
+
+  // @public
+  async updateObjectStore(name, oldValue, newValue) {
+    const objectStore = await this.objectStore(name, 'readwrite');
+    const { keyPath } = objectStore;
+
+    return new Promise((resolve, reject) => {
+      const openCursor = objectStore.openCursor();
+
+      openCursor.onsuccess = event => {
+        const cursor = event.target.result;
+
+        if (cursor) {
+          const library = cursor.value;
+
+          if (_.isEqual(oldValue, library)) {
+            _.assignWith(library, newValue, (objValue, srcValue, objKey) => {
+              if (objKey === keyPath) {
+                return objValue
+              } else {
+                return srcValue
+              }
+            })
+
+            cursor.update(library)
+          }
+
+          cursor.continue();
+        } else {
+          resolve('success')
+        }
+      };
+
+      openCursor.onerror = reject;
+    });
+  }
 }
 
 module.exports = IndexedDBAdmin;
